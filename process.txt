@@ -1,1 +1,1 @@
-1. Installed expo 
+1. Installed expo & it's dependencies through docs
