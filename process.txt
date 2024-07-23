@@ -3,3 +3,5 @@
 Learned:
 1. Stack
 2. Configure nativewind (tailwindcss)
+3. Splashscreen
+4. Adding & using fonts
