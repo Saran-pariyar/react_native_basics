@@ -5,3 +5,6 @@ Learned:
 2. Configure nativewind (tailwindcss)
 3. Splashscreen
 4. Adding & using fonts
+5. Tabs.Screen -> Menu bar, automatically searches for pages inside (tab) folder and add it's link in menu
+6. TabsIcon
+7. Tabs screenOptions
