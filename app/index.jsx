@@ -4,6 +4,7 @@ import { ScrollView, View, Image, Text } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 import { images } from "../constants";
+import CustomButton from "../components/CustomButton";
 
 export default function App() {
   return (
@@ -12,8 +13,11 @@ export default function App() {
         <View className="w-full flex justify-center items-center h-full px-4">
           <Image
             source={images.logo}
+
             className="w-[130px] h-[84px]"
             resizeMode="contain"
+            //blurs image
+            blurRadius={0}
           />
           <Image
             source={images.cards}
@@ -39,8 +43,22 @@ export default function App() {
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
             Exploration with Aora
           </Text>
+          <CustomButton 
+          title="Continue with Email"
+           handlePress={() => {}}
+            containerStyles="w-full mt-7"
+          />
         </View>
       </ScrollView>
+
+      <StatusBar 
+        backgroundColor="#161622"  
+        style="light" 
+        //show/hide the status bar (battery bar)
+        hidden={false} 
+        //animation when show/hide status bar
+        animated={true} />
+
     </SafeAreaView>
   );
 }
