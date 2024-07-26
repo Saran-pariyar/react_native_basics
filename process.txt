@@ -11,3 +11,4 @@ Learned:
 8. SafeAreaView -> ensures content is positioned correctly on all devices. Content doesn't overlap with status bar/bottom bar, etc
 9. Scrollview -> makes pages scrollable
 10. Touchable Opacity for btn
+11. TextInput
