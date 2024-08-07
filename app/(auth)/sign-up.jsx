@@ -1,4 +1,4 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link } from "expo-router";
@@ -17,8 +17,51 @@ const SignUp = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const submit = async () => {
-    
+    setSubmitting(true);
+
+    try {
+      const response = await fetch('http://192.168.10.105:6000/api/v1/users/register?', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Sign up successful:', data);
+
+        // Show success alert
+        Alert.alert(
+          'Sign Up Successful',
+          data.message || 'You have signed up successfully!',
+          [{ text: 'OK' }]
+        );
+      } else {
+        console.error('Sign up failed:', data.message);
+
+        // Show error alert
+        Alert.alert(
+          'Sign Up Failed',
+          data.message || 'An error occurred during sign up. Please try again.',
+          [{ text: 'OK' }]
+        );
+      }
+    } catch (error) {
+      console.error('Error:', error.message, error);
+
+      // Show error alert for network errors
+      Alert.alert(
+        'Network Error',
+        'There was an error connecting to the server. Please check your network connection and try again.',
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setSubmitting(false);
     }
+  }
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -56,7 +99,7 @@ const SignUp = () => {
           />
 
           <CustomButton
-            title="Sign In"
+            title="Sign Up"
             handlePress={submit}
             containerStyles="mt-7"
             isLoading={isSubmitting}
