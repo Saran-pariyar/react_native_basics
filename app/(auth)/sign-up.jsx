@@ -1,7 +1,7 @@
 import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
@@ -20,7 +20,7 @@ const SignUp = () => {
     setSubmitting(true);
 
     try {
-      const response = await fetch('http://192.168.10.105:6000/api/v1/users/register?', {
+      const response = await fetch(`http://192.168.1.101:6000/api/v1/users/register?`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -39,6 +39,7 @@ const SignUp = () => {
           data.message || 'You have signed up successfully!',
           [{ text: 'OK' }]
         );
+        router.replace("/home")
       } else {
         console.error('Sign up failed:', data.message);
 

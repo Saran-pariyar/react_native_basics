@@ -1,7 +1,7 @@
-import { View, Text, ScrollView, Image } from "react-native";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
@@ -16,8 +16,53 @@ const SignIn = () => {
   const [isSubmitting, setSubmitting] = useState(false);
 
   const submit = async () => {
-    
+    setSubmitting(true);
+
+    try {
+      const response = await fetch(`http://192.168.1.101:6000/api/v1/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Login successful:', data);
+
+        // Show success alert
+        Alert.alert(
+          'Login Successful',
+          data.message || 'You have been logged in!',
+          [{ text: 'OK' }]
+        );
+        router.replace("/home")
+      } else {
+        console.error('Login failed:', data.message);
+
+        // Show error alert
+        Alert.alert(
+          'Sign In Failed',
+          data.message || 'An error occurred during sign in. Please try again.',
+          [{ text: 'OK' }]
+        );
+      }
+    } catch (error) {
+      console.error('Error:', error.message, error);
+
+      // Show error alert for network errors
+      Alert.alert(
+        'Network Error',
+        'There was an error connecting to the server. Please check your network connection and try again.',
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setSubmitting(false);
     }
+  }
+
 
   return (
     <SafeAreaView className="bg-primary h-full">
