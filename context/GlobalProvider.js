@@ -1,33 +1,36 @@
+import { router } from "expo-router";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-import { getCurrentUser } from "../lib/appwrite";
+
 
 const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
 
+const ipAddress = "192.168.1.101"
+
 const GlobalProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState({email: "", username: ''});
+  const [loading, setLoading] = useState(false);
+
+
+  
+
 
   useEffect(() => {
-    getCurrentUser()
-      .then((res) => {
-        if (res) {
-          setIsLogged(true);
-          setUser(res);
-        } else {
-          setIsLogged(false);
-          setUser(null);
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+// we run this to check if we're still logged in, we will check if users is there or not
+// if(user.email){
+//   setIsLogged(true)
+//   console.log("logged in: ",  user);
+//   router.replace("/home")
+// }
+// else{
+//   setIsLogged(false)
+//   console.log("Not logged");
+// }
+   
+   
+  }, [user]);
 
   return (
     <GlobalContext.Provider
@@ -37,6 +40,8 @@ const GlobalProvider = ({ children }) => {
         user,
         setUser,
         loading,
+        setLoading,
+        ipAddress
       }}
     >
       {children}

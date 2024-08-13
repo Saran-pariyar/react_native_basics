@@ -6,18 +6,71 @@ import { Link, router } from "expo-router";
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { signUpFunc } from "../../lib/auth_functions";
+
+import { useGlobalContext } from "../../context/GlobalProvider";
+
 
 const SignUp = () => {
+
+  const {ipAddress, loading, setLoading, setUser, user} = useGlobalContext();
+
   const [form, setForm] = useState({
     username: '',
     email: "",
     password: "",
   });
 
-  const submit = () =>{
-    signUpFunc(form)
+  const submit = async () => {
+    setLoading(true)
+
+    try {
+      const response = await fetch(`http://${ipAddress}:6000/api/v1/users/register`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        console.log('Sign up successful:', data);
+        setUser({username:data.data.username, email:data.data.email})
+
+        // Show success alert
+        Alert.alert(
+          'Sign Up Successful',
+          data.message || 'You have signed up successfully!',
+          [{ text: 'OK' }]
+        );
+        router.replace("/home")
+      } else {
+        console.error('Sign up failed:', data.message);
+
+        // Show error alert
+        Alert.alert(
+          'Sign Up Failed',
+          data.message || 'An error occurred during sign up. Please try again.',
+          [{ text: 'OK' }]
+        );
+      }
+    } catch (error) {
+      console.error('Error:', error.message, error);
+
+      // Show error alert for network errors
+      Alert.alert(
+        'Network Error',
+        'There was an error connecting to the server. Please check your network connection and try again.',
+        [{ text: 'OK' }]
+      );
+    } finally {
+      setLoading(false)
+    }
   }
+
+  
+  
 
   return (
     <SafeAreaView className="bg-primary h-full">

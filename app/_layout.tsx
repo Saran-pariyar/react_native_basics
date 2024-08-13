@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { SplashScreen, Stack } from 'expo-router'
 import { useFonts } from 'expo-font'
 import { useEffect } from 'react'
+import GlobalProvider from "../context/GlobalProvider"
 
 // splash screen means that page which appears before app is loading. (Eg: Made with Unity page before game start)
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -41,6 +42,7 @@ const RootLayout = () => {
   }
 
   return (
+    <GlobalProvider>
    <Stack>
     <Stack.Screen name='index' options={{headerShown: false}}  />
     <Stack.Screen name='(auth)' options={{headerShown: false}}  />
@@ -50,6 +52,7 @@ const RootLayout = () => {
 
 
    </Stack>
+   </GlobalProvider>
    
   )
 }
