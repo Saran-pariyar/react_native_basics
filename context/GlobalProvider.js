@@ -16,7 +16,7 @@ const GlobalProvider = ({ children }) => {
 
   
 
-
+/*
   useEffect(() => {
 // we run this to check if we're still logged in, we will check if users is there or not
 // if(user.email){
@@ -31,6 +31,8 @@ const GlobalProvider = ({ children }) => {
    
    
   }, [user]);
+
+  */
 
   return (
     <GlobalContext.Provider

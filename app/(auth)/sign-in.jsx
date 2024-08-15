@@ -13,7 +13,7 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignIn = () => {
 
-  const {ipAddress, isLoading, setUser, user} = useGlobalContext();
+  const {ipAddress, setLoading, setUser, user} = useGlobalContext();
 
   const [form, setForm] = useState({
     email: "",
@@ -23,7 +23,7 @@ const SignIn = () => {
   
     const submit = async () => {
 
-      isLoading(true)
+      setLoading(true)
     
       try {
         const response = await fetch(`http://${ipAddress}:6000/api/v1/users/login`, {
@@ -37,9 +37,9 @@ const SignIn = () => {
         const data = await response.json();
     
         if (response.ok) {
-          console.log('Login successful:', data);
+          // console.log('Login successful:', data);
           setUser({username : data.data.user.username, email: data.data.user.email})
-          console.log(user);
+          console.log("User hook: " , user);
     
           
           Alert.alert(
@@ -68,7 +68,7 @@ const SignIn = () => {
           [{ text: 'OK' }]
         );
       } finally {
-        isLoading(false)
+        setLoading(false)
       }
     }
   
@@ -105,7 +105,7 @@ const SignIn = () => {
             title="Sign In"
             handlePress={submit}
             containerStyles="mt-7"
-            // isLoading={isSubmitting}
+            // setLoading={isSubmitting}
           />
 
           <View className="flex justify-center pt-5 flex-row gap-2">
