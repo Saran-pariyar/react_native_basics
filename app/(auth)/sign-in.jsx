@@ -38,8 +38,10 @@ const SignIn = () => {
     
         if (response.ok) {
           // console.log('Login successful:', data);
+
           setUser({username : data.data.user.username, email: data.data.user.email})
-          console.log("User hook: " , user);
+
+          console.log("User: " , user);
     
           
           Alert.alert(

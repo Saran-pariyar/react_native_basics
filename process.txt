@@ -12,3 +12,4 @@ Learned:
 9. Scrollview -> makes pages scrollable
 10. Touchable Opacity for btn
 11. TextInput
+12. FlatList -> we give data (array), keyExtractor is like map(), then renderItem
