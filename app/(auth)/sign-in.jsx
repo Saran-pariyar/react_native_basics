@@ -9,9 +9,12 @@ import CustomButton from "../../components/CustomButton";
 import { useGlobalContext } from "../../context/GlobalProvider";
 // import { loginFunc } from "../../lib/auth_functions";
 
+import { useStore } from "../store/UserStore";
+
 
 
 const SignIn = () => {
+  let bears = useStore((state) => state.bears)
 
   const {ipAddress, setLoading, setUser, user} = useGlobalContext();
 
@@ -85,7 +88,7 @@ const SignIn = () => {
             className="w-[115px] h-[34px]"
           />
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora
+            Log in to Aora {bears}
           </Text>
           <FormField
             title="Email"

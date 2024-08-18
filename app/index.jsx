@@ -8,19 +8,14 @@ import CustomButton from "../components/CustomButton";
 
 import { useGlobalContext } from "../context/GlobalProvider";
 
-import { create } from "zustand";
+import { useStore } from "./store/UserStore";
 
 
 export default function App() {
 
-  const useStore = create((set) => ({
-    bears: 0,
-    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-    removeAllBears: () => set({ bears: 0 }),
-    updateBears: (newBears) => set({ bears: newBears }),
-  }))
   
   let bears = useStore((state) => state.bears)
+  let addBear = useStore((state)=> state.increasePopulation)
   
 
   const { isLogged } = useGlobalContext();
@@ -67,7 +62,7 @@ export default function App() {
           </Text>
           <CustomButton 
           title="Continue with Email"
-           handlePress={() => {router.push('/sign-in')}}
+           handlePress={() => {addBear(); router.push('/sign-in');  }}
             containerStyles="w-full mt-7"
           />
         </View>
