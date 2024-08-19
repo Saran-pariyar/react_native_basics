@@ -8,14 +8,14 @@ import CustomButton from "../components/CustomButton";
 
 import { useGlobalContext } from "../context/GlobalProvider";
 
-import { useStore } from "./store/UserStore";
+import { useUserAuth } from "./store/UserStore";
 
 
 export default function App() {
 
   
-  let bears = useStore((state) => state.bears)
-  let addBear = useStore((state)=> state.increasePopulation)
+  // let bears = useStore((state) => state.bears)
+  // let addBear = useStore((state)=> state.increasePopulation)
   
 
   const { isLogged } = useGlobalContext();
@@ -58,11 +58,11 @@ export default function App() {
 
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora {bears}
+            Exploration with Aora 
           </Text>
           <CustomButton 
           title="Continue with Email"
-           handlePress={() => {addBear(); router.push('/sign-in');  }}
+           handlePress={() => { router.push('/sign-in');  }}
             containerStyles="w-full mt-7"
           />
         </View>

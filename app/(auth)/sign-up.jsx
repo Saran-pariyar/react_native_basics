@@ -9,10 +9,14 @@ import CustomButton from "../../components/CustomButton";
 
 import { useGlobalContext } from "../../context/GlobalProvider";
 
+import { useUserAuth } from "../store/UserStore";
+
+const ipAddress = useUserAuth.getState().ipAddress;
+
 
 const SignUp = () => {
 
-  const {ipAddress, loading, setLoading, setUser, user} = useGlobalContext();
+  const { setLoading, setUser, user} = useGlobalContext();
 
   const [form, setForm] = useState({
     username: '',

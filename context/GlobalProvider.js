@@ -6,7 +6,6 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 const GlobalContext = createContext();
 export const useGlobalContext = () => useContext(GlobalContext);
 
-const ipAddress = "192.168.1.101"
 
 const GlobalProvider = ({ children }) => {
   const [isLogged, setIsLogged] = useState(false);
@@ -43,7 +42,6 @@ const GlobalProvider = ({ children }) => {
         setUser,
         loading,
         setLoading,
-        ipAddress
       }}
     >
       {children}

@@ -1,8 +1,15 @@
 import { create } from "zustand";
 
-export const useStore = create((set) => ({
-    bears: 0,
-    increasePopulation: () => set((state) => ({ bears: state.bears + 1 })),
-    removeAllBears: () => set({ bears: 0 }),
-    updateBears: (newBears) => set({ bears: newBears }),
+
+export const useUserAuth = create((set) => ({
+    
+    ipAddress: "192.168.1.101",
+
+    isLoggedIn: false,
+
+    userData : {},
+
+    loading : false,
+
+    // increasePopulation: () => set((state) => ({ bears:  
   }))

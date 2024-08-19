@@ -1,32 +1,41 @@
 import { View, Text, ScrollView, Image, Alert } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { Link, router } from "expo-router";
 
 import { images } from "../../constants";
 import FormField from "../../components/FormField";
 import CustomButton from "../../components/CustomButton";
-import { useGlobalContext } from "../../context/GlobalProvider";
+// import { useGlobalContext } from "../../context/GlobalProvider";
 // import { loginFunc } from "../../lib/auth_functions";
 
-import { useStore } from "../store/UserStore";
+import { useUserAuth } from "../store/UserStore";
 
+const ipAddress = useUserAuth.getState().ipAddress;
+const userData = useUserAuth.getState().userData;
+const loading = useUserAuth.getState().loading;
 
 
 const SignIn = () => {
-  let bears = useStore((state) => state.bears)
+  // let bears = useStore((state) => state.bears)
 
-  const {ipAddress, setLoading, setUser, user} = useGlobalContext();
+  const [user, setUser] = useState(null)
+  // const {setLoading} = useGlobalContext();
 
   const [form, setForm] = useState({
     email: "",
     password: "",
   });
 
+  useEffect(() => {
+    console.log("User after update:", user); // Logs after state update
+    useUserAuth.setState({ userData: user });
+  }, [user]);
+  
   
     const submit = async () => {
 
-      setLoading(true)
+      // setLoading(true)
     
       try {
         const response = await fetch(`http://${ipAddress}:6000/api/v1/users/login`, {
@@ -44,7 +53,6 @@ const SignIn = () => {
 
           setUser({username : data.data.user.username, email: data.data.user.email})
 
-          console.log("User: " , user);
     
           
           Alert.alert(
@@ -73,7 +81,7 @@ const SignIn = () => {
           [{ text: 'OK' }]
         );
       } finally {
-        setLoading(false)
+        // setLoading(false)
       }
     }
   
@@ -88,7 +96,7 @@ const SignIn = () => {
             className="w-[115px] h-[34px]"
           />
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora {bears}
+            Log in to Aora 
           </Text>
           <FormField
             title="Email"
