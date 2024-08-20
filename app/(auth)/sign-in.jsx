@@ -19,7 +19,7 @@ const loading = useUserAuth.getState().loading;
 const SignIn = () => {
   // let bears = useStore((state) => state.bears)
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
   // const {setLoading} = useGlobalContext();
 
   const [form, setForm] = useState({
@@ -28,8 +28,9 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    console.log("User after update:", user); // Logs after state update
-    useUserAuth.setState({ userData: user });
+    // console.log("User after update:", user); 
+    // useUserAuth.setState({ userData: user });
+    console.log("Changed user");
   }, [user]);
   
   
@@ -51,16 +52,19 @@ const SignIn = () => {
         if (response.ok) {
           // console.log('Login successful:', data);
 
-          setUser({username : data.data.user.username, email: data.data.user.email})
+          
+          
 
-    
+    // console.log(data.data.user);
+    setUser(data.data.user)
+    console.log(user);
           
           Alert.alert(
             'Login Successful',
             data.message || 'You have been logged in!',
             [{ text: 'OK' }]
           );
-          router.replace("/home")
+          // router.replace("/home")
         } else {
           console.error('Login failed:', data.message);
     
@@ -132,6 +136,7 @@ const SignIn = () => {
               Signup
             </Link>
           </View>
+          <Text>this: {user}</Text>
 
         </View>
       </ScrollView>
