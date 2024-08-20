@@ -15,11 +15,12 @@ const ipAddress = useUserAuth.getState().ipAddress;
 const userData = useUserAuth.getState().userData;
 const loading = useUserAuth.getState().loading;
 
-
 const SignIn = () => {
   // let bears = useStore((state) => state.bears)
+  const [changeStatus, setChangeStatus] = useState(1)
+  const [getUserApiData, setGetUserApiData] = useState({})
 
-  const [user, setUser] = useState({})
+  
   // const {setLoading} = useGlobalContext();
 
   const [form, setForm] = useState({
@@ -28,10 +29,13 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    // console.log("User after update:", user); 
-    // useUserAuth.setState({ userData: user });
-    console.log("Changed user");
-  }, [user]);
+    console.log("Effect user: ", getUserApiData);
+    useUserAuth.setState({ userData: getUserApiData });
+    
+    console.log("count: ", changeStatus);
+    console.log("Zustand user Data: " , useUserAuth.getState().userData);
+    
+  }, [changeStatus]);
   
   
     const submit = async () => {
@@ -51,14 +55,14 @@ const SignIn = () => {
     
         if (response.ok) {
           // console.log('Login successful:', data);
+          setGetUserApiData( {email: data.data.user.email, username: data.data.user.username})
 
-          
-          
+        
 
-    // console.log(data.data.user);
-    setUser(data.data.user)
-    console.log(user);
-          
+          // useUserAuth.setState({ userData: user });
+          setChangeStatus(changeStatus + 1)
+
+  
           Alert.alert(
             'Login Successful',
             data.message || 'You have been logged in!',
@@ -136,7 +140,7 @@ const SignIn = () => {
               Signup
             </Link>
           </View>
-          <Text>this: {user}</Text>
+          <Text>this: </Text>
 
         </View>
       </ScrollView>
