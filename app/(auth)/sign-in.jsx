@@ -19,7 +19,6 @@ const SignIn = () => {
   // let bears = useStore((state) => state.bears)
   const [changeStatus, setChangeStatus] = useState(1)
   const [getUserApiData, setGetUserApiData] = useState({})
-
   
   // const {setLoading} = useGlobalContext();
 
@@ -29,10 +28,10 @@ const SignIn = () => {
   });
 
   useEffect(() => {
-    console.log("Effect user: ", getUserApiData);
+    // console.log("Effect user: ", getUserApiData);
     useUserAuth.setState({ userData: getUserApiData });
     
-    console.log("count: ", changeStatus);
+    // console.log("count: ", changeStatus);
     console.log("Zustand user Data: " , useUserAuth.getState().userData);
     
   }, [changeStatus]);
@@ -57,9 +56,7 @@ const SignIn = () => {
           // console.log('Login successful:', data);
           setGetUserApiData( {email: data.data.user.email, username: data.data.user.username})
 
-        
-
-          // useUserAuth.setState({ userData: user });
+          //triggers use effect to update data in zustand
           setChangeStatus(changeStatus + 1)
 
   
@@ -68,7 +65,7 @@ const SignIn = () => {
             data.message || 'You have been logged in!',
             [{ text: 'OK' }]
           );
-          // router.replace("/home")
+          router.replace("/home")
         } else {
           console.error('Login failed:', data.message);
     

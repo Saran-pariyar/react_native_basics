@@ -4,25 +4,26 @@ import { useUserAuth } from '../store/UserStore'
 import CustomButton from '../../components/CustomButton';
 import { router } from 'expo-router';
 
-const userData = useUserAuth.getState().userData;
-const isLoggedIn = useUserAuth.getState().isLoggedIn;
+
 
 const Home = () => {
+  const userData = useUserAuth((state) => state.userData); // Track userData changes
+  const isLoggedIn = useUserAuth((state) => state.isLoggedIn);
+
   console.log("before: ", isLoggedIn);
-  useUserAuth.setState({ isLoggedIn: true});
+  // useUserAuth.setState({ isLoggedIn: true});
   console.log("after: ", isLoggedIn);
+  console.log("before logout - userData:", useUserAuth.getState().userData);
 
-
-
-  useEffect(() => {
-    console.log("Home user:", userData); 
-  }, [userData, isLoggedIn]);
 
   const submit = () =>{
     useUserAuth.setState({ isLoggedIn: false });
   console.log("after logout: ", isLoggedIn);
     
     useUserAuth.setState({ userData:{} });
+
+    console.log("after logout - userData:", useUserAuth.getState().userData);
+
     router.replace("/sign-in")
 
   }
