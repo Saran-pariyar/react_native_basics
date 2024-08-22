@@ -1,9 +1,11 @@
-import { View, Text, SafeAreaView, FlatList } from 'react-native'
+import { View, Text, SafeAreaView, FlatList, Image } from 'react-native'
 import React, {useEffect} from 'react'
 import { useUserAuth } from '../store/UserStore'
 import CustomButton from '../../components/CustomButton';
 import { router } from 'expo-router';
 
+import {images} from "../../constants"
+import SearchInput from '../../components/SearchInput';
 
 
 const Home = () => {
@@ -16,7 +18,7 @@ const Home = () => {
   console.log("before logout - userData:", useUserAuth.getState().userData);
 
 
-  const submit = () =>{
+  const logOut = () =>{
     useUserAuth.setState({ isLoggedIn: false });
   console.log("after logout: ", isLoggedIn);
     
@@ -28,26 +30,51 @@ const Home = () => {
 
   }
   return (
-    <SafeAreaView>
-      <Text>Hello</Text>
-      <Text>Hello</Text>
+    <SafeAreaView className="bg-primary pt-4">
+      
+   
 
-      <Text>Hello</Text>
-      <CustomButton
+    
+      <FlatList
+      data={[{id:1}, {id:2}, {id:3}]}
+      keyExtractor={(item) => item.id}
+      renderItem={({item})=>(
+        <Text className="text-3xl text-white">{item.id}</Text>
+      )}
+      ListHeaderComponent={()=>(
+        <View className="flex my-6 px-4 space-y-6">
+        <View className="flex justify-between items-start flex-row mb-6">
+          <View>
+            <Text className="font-pmedium text-sm text-gray-100">
+              Welcome Back
+            </Text>
+            <Text className="text-2xl font-psemibold text-white">
+            {userData.username}
+            </Text>
+          </View>
+
+          <View className="mt-1.5">
+            <Image
+              source={images.logoSmall}
+              className="w-9 h-10"
+              resizeMode="contain"
+            />
+          </View>
+        </View>
+
+        <SearchInput />
+
+        </View>
+      )}
+      />
+
+    <CustomButton
             title="Log Out"
-            handlePress={submit}
+            handlePress={logOut}
             containerStyles="mt-7"
             // setLoading={isSubmitting}
           />
 
-    <Text>Welcome: {userData.username}</Text>
-      <FlatList
-      data={[{id:1}]}
-      keyExtractor={(item) => item.id}
-      renderItem={({item})=>(
-        <Text>{item.id}</Text>
-      )}
-      />
     
     </SafeAreaView>
   )
