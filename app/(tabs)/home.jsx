@@ -7,6 +7,7 @@ import { router } from "expo-router";
 import { images } from "../../constants";
 import SearchInput from "../../components/SearchInput";
 import Trending from "../../components/Trending";
+import EmptyState from "../../components/EmptyState";
 
 const Home = () => {
   const userData = useUserAuth((state) => state.userData); // Track userData changes
@@ -31,6 +32,7 @@ const Home = () => {
     <SafeAreaView className="bg-primary pt-4">
       <FlatList
         data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
+        // data={[]}
         keyExtractor={(item) => item.$id}
         renderItem={({ item }) => (
           <Text className="text-3xl text-white">{item.id}</Text>
@@ -67,6 +69,12 @@ const Home = () => {
             </View>
           </View>
         )}
+        ListEmptyComponent={()=>(
+          <EmptyState 
+          title = "No Videos Found"
+          subtitle= "Be the first one to upload a video"
+          />
+  )}
       />
 
       <CustomButton
