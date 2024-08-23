@@ -12,5 +12,5 @@ Learned:
 9. Scrollview -> makes pages scrollable
 10. Touchable Opacity for btn
 11. TextInput
-12. FlatList -> we give data (array), keyExtractor is like map(), then renderItem
+12. FlatList -> we give data (array), keyExtractor is like map(), then renderItem, ListeEmptyComponent, refresh control
     in flatlist, we cannot do horizontal and vertical at same time so we need to use one in home and second in trending.jsx for those 2 scrolling

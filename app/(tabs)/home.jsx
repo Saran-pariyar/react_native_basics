@@ -1,5 +1,5 @@
-import { View, Text, SafeAreaView, FlatList, Image } from "react-native";
-import React, { useEffect } from "react";
+import { View, Text, SafeAreaView, FlatList, Image, RefreshControl } from "react-native";
+import React, { useEffect, useState } from "react";
 import { useUserAuth } from "../store/UserStore";
 import CustomButton from "../../components/CustomButton";
 import { router } from "expo-router";
@@ -13,10 +13,10 @@ const Home = () => {
   const userData = useUserAuth((state) => state.userData); // Track userData changes
   const isLoggedIn = useUserAuth((state) => state.isLoggedIn);
 
-  console.log("before: ", isLoggedIn);
-  // useUserAuth.setState({ isLoggedIn: true});
-  console.log("after: ", isLoggedIn);
-  console.log("before logout - userData:", useUserAuth.getState().userData);
+  // console.log("before: ", isLoggedIn);
+  // // useUserAuth.setState({ isLoggedIn: true});
+  // console.log("after: ", isLoggedIn);
+  // console.log("before logout - userData:", useUserAuth.getState().userData);
 
   const logOut = () => {
     useUserAuth.setState({ isLoggedIn: false });
@@ -28,6 +28,19 @@ const Home = () => {
 
     router.replace("/sign-in");
   };
+
+  // for refresh control
+
+  const [refreshing, setRefreshing] = useState(false)
+  const onRefresh = async () =>{
+    setRefreshing(true)
+
+    // recall videos => if any new videos appear
+
+    setRefreshing(false)
+
+  }
+
   return (
     <SafeAreaView className="bg-primary pt-4">
       <FlatList
@@ -75,6 +88,9 @@ const Home = () => {
           subtitle= "Be the first one to upload a video"
           />
   )}
+  refreshControl={ 
+    <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+ }
       />
 
       <CustomButton
