@@ -17,9 +17,9 @@ const loading = useUserAuth.getState().loading;
 
 const SignIn = () => {
   // let bears = useStore((state) => state.bears)
-  const [changeStatus, setChangeStatus] = useState(1)
-  const [getUserApiData, setGetUserApiData] = useState({})
-  
+  const [changeStatus, setChangeStatus] = useState(1);
+  const [getUserApiData, setGetUserApiData] = useState({});
+
   // const {setLoading} = useGlobalContext();
 
   const [form, setForm] = useState({
@@ -30,66 +30,65 @@ const SignIn = () => {
   useEffect(() => {
     // console.log("Effect user: ", getUserApiData);
     useUserAuth.setState({ userData: getUserApiData });
-    
-    // console.log("count: ", changeStatus);
-    console.log("Zustand user Data: " , useUserAuth.getState().userData);
-    
-  }, [changeStatus]);
-  
-  
-    const submit = async () => {
 
-      // setLoading(true)
-    
-      try {
-        const response = await fetch(`http://${ipAddress}:6000/api/v1/users/login`, {
-          method: 'POST',
+    // console.log("count: ", changeStatus);
+    console.log("Zustand user Data: ", useUserAuth.getState().userData);
+  }, [changeStatus]);
+
+  const submit = async () => {
+    // setLoading(true)
+
+    try {
+      const response = await fetch(
+        `http://${ipAddress}:6000/api/v1/users/login`,
+        {
+          method: "POST",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify(form),
-        });
-    
-        const data = await response.json();
-    
-        if (response.ok) {
-          // console.log('Login successful:', data);
-          setGetUserApiData( {email: data.data.user.email, username: data.data.user.username})
-
-          //triggers use effect to update data in zustand
-          setChangeStatus(changeStatus + 1)
-
-  
-          Alert.alert(
-            'Login Successful',
-            data.message || 'You have been logged in!',
-            [{ text: 'OK' }]
-          );
-          router.replace("/home")
-        } else {
-          console.error('Login failed:', data.message);
-    
-          
-          Alert.alert(
-            'Sign In Failed',
-            data.message || 'An error occurred during sign in. Please try again.',
-            [{ text: 'OK' }]
-          );
         }
-      } catch (error) {
-        console.error('Error:', error.message, error);
-    
-        
+      );
+
+      const data = await response.json();
+
+      if (response.ok) {
+        // console.log('Login successful:', data);
+        setGetUserApiData({
+          email: data.data.user.email,
+          username: data.data.user.username,
+        });
+
+        //triggers use effect to update data in zustand
+        setChangeStatus(changeStatus + 1);
+
         Alert.alert(
-          'Network Error',
-          'There was an error connecting to the server. Please check your network connection and try again.',
-          [{ text: 'OK' }]
+          "Login Successful",
+          data.message || "You have been logged in!",
+          [{ text: "OK" }]
         );
-      } finally {
-        // setLoading(false)
+        router.replace("/home");
+      } else {
+        console.error("Login failed:", data.message);
+
+        Alert.alert(
+          "Sign In Failed",
+          data.message || "An error occurred during sign in. Please try again.",
+          [{ text: "OK" }]
+        );
       }
+    } catch (error) {
+      console.error("Error:", error.message, error);
+
+      Alert.alert(
+        "Network Error",
+        "There was an error connecting to the server. Please check your network connection and try again.",
+        [{ text: "OK" }]
+      );
+    } finally {
+      // setLoading(false)
     }
-  
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -101,7 +100,7 @@ const SignIn = () => {
             className="w-[115px] h-[34px]"
           />
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora 
+            Log in to Aora
           </Text>
           <FormField
             title="Email"
@@ -133,12 +132,12 @@ const SignIn = () => {
 
             <Link
               href="/sign-up"
-              className="text-lg font-psemibold text-secondary">
+              className="text-lg font-psemibold text-secondary"
+            >
               Signup
             </Link>
           </View>
           <Text>this: </Text>
-
         </View>
       </ScrollView>
     </SafeAreaView>

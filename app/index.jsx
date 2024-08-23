@@ -10,13 +10,9 @@ import { useGlobalContext } from "../context/GlobalProvider";
 
 import { useUserAuth } from "./store/UserStore";
 
-
 export default function App() {
-
-  
   // let bears = useStore((state) => state.bears)
   // let addBear = useStore((state)=> state.increasePopulation)
-  
 
   const { isLogged } = useGlobalContext();
 
@@ -24,13 +20,10 @@ export default function App() {
 
   return (
     <SafeAreaView className="bg-primary h-full">
-
       <ScrollView contentContainerStyle={{ height: "100%" }}>
-        
         <View className="w-full justify-center items-center h-full px-4">
           <Image
             source={images.logo}
-
             className="w-[130px] h-[84px]"
             resizeMode="contain"
             //blurs image
@@ -58,24 +51,26 @@ export default function App() {
 
           <Text className="text-sm font-pregular text-gray-100 mt-7 text-center">
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora 
+            Exploration with Aora
           </Text>
-          <CustomButton 
-          title="Continue with Email"
-           handlePress={() => { router.push('/sign-in');  }}
+          <CustomButton
+            title="Continue with Email"
+            handlePress={() => {
+              router.push("/sign-in");
+            }}
             containerStyles="w-full mt-7"
           />
         </View>
       </ScrollView>
 
-      <StatusBar 
-        backgroundColor="#161622"  
-        style="light" 
+      <StatusBar
+        backgroundColor="#161622"
+        style="light"
         //show/hide the status bar (battery bar)
-        hidden={false} 
+        hidden={false}
         //animation when show/hide status bar
-        animated={true} />
-
+        animated={true}
+      />
     </SafeAreaView>
   );
 }

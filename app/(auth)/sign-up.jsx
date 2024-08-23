@@ -13,68 +13,66 @@ import { useUserAuth } from "../store/UserStore";
 
 const ipAddress = useUserAuth.getState().ipAddress;
 
-
 const SignUp = () => {
-
-  const { setLoading, setUser, user} = useGlobalContext();
+  const { setLoading, setUser, user } = useGlobalContext();
 
   const [form, setForm] = useState({
-    username: '',
+    username: "",
     email: "",
     password: "",
   });
 
   const submit = async () => {
-    setLoading(true)
+    setLoading(true);
 
     try {
-      const response = await fetch(`http://${ipAddress}:6000/api/v1/users/register`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(form),
-      });
+      const response = await fetch(
+        `http://${ipAddress}:6000/api/v1/users/register`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(form),
+        }
+      );
 
       const data = await response.json();
 
       if (response.ok) {
-        console.log('Sign up successful:', data);
-        setUser({username:data.data.username, email:data.data.email})
+        console.log("Sign up successful:", data);
+        setUser({ username: data.data.username, email: data.data.email });
 
         // Show success alert
         Alert.alert(
-          'Sign Up Successful',
-          data.message || 'You have signed up successfully!',
-          [{ text: 'OK' }]
+          "Sign Up Successful",
+          data.message || "You have signed up successfully!",
+          [{ text: "OK" }]
         );
-        router.replace("/home")
+        router.replace("/home");
       } else {
-        console.error('Sign up failed:', data.message);
+        console.error("Sign up failed:", data.message);
 
         // Show error alert
         Alert.alert(
-          'Sign Up Failed',
-          data.message || 'An error occurred during sign up. Please try again.',
-          [{ text: 'OK' }]
+          "Sign Up Failed",
+          data.message || "An error occurred during sign up. Please try again.",
+          [{ text: "OK" }]
         );
       }
     } catch (error) {
-      console.error('Error:', error.message, error);
+      console.error("Error:", error.message, error);
 
       // Show error alert for network errors
       Alert.alert(
-        'Network Error',
-        'There was an error connecting to the server. Please check your network connection and try again.',
-        [{ text: 'OK' }]
+        "Network Error",
+        "There was an error connecting to the server. Please check your network connection and try again.",
+        [{ text: "OK" }]
       );
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
-
-  
-  
+  };
 
   return (
     <SafeAreaView className="bg-primary h-full">
@@ -125,11 +123,11 @@ const SignUp = () => {
 
             <Link
               href="/sign-in"
-              className="text-lg font-psemibold text-secondary">
+              className="text-lg font-psemibold text-secondary"
+            >
               Sign in
             </Link>
           </View>
-
         </View>
       </ScrollView>
     </SafeAreaView>
