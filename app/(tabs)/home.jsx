@@ -6,6 +6,7 @@ import { router } from 'expo-router';
 
 import {images} from "../../constants"
 import SearchInput from '../../components/SearchInput';
+import Trending from '../../components/Trending';
 
 
 const Home = () => {
@@ -37,7 +38,7 @@ const Home = () => {
     
       <FlatList
       data={[{id:1}, {id:2}, {id:3}]}
-      keyExtractor={(item) => item.id}
+      keyExtractor={(item) => item.$id}
       renderItem={({item})=>(
         <Text className="text-3xl text-white">{item.id}</Text>
       )}
@@ -69,7 +70,7 @@ const Home = () => {
                 Latest Videos
               </Text>
 
-              {/* <Trending posts={latestPosts ?? []} /> */}
+              <Trending posts={ [{id:1}, {id:2},{id:3} ] ?? []} />
             </View>
 
         </View>
