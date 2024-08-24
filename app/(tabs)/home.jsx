@@ -42,7 +42,7 @@ const Home = () => {
   }
 
   return (
-    <SafeAreaView className="bg-primary pt-4">
+    <SafeAreaView className="bg-primary pt-4 h-full">
       <FlatList
         data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
         // data={[]}
